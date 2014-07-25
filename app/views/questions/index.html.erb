@@ -1,0 +1,127 @@
+ <script type="text/javascript">
+$(document).ready(function() {
+  $("#course,#year,#testname,#qno,#checkbox,#subpart").hide();
+  $("#category").change(function() {
+      if ($( "#category option:selected" ).text()=="Exam Question")
+      {
+        $("#course,#year,#testname,#qno").show();
+
+      }
+      if ($( "#category option:selected" ).text()!="Exam Question")
+      {
+        $("#course,#year,#testname,#qno,#checkbox,#subpart").hide();
+      }
+
+  })
+   
+});
+</script>
+  <%= form_tag(questions_path, :method => "get", id: "search-form", class: "navbar-form navbar-left", role: "search") do %>
+  <strong>Keywords:</strong><br/>
+  <%= text_field_tag :search, params[:search], placeholder: "Search Questions", class: "form-control", id:"searchtext" %><br/>
+    <strong>Category:</strong><select name="category" id="category">
+  <option></option>
+  <option>Exam Question</option>
+  <option>General</option>
+  <option>Frosh Year Question</option>
+  <option>Summer Opportunities/Job Hunting</option>
+  </select><br/>
+
+  <div id="course">
+   <strong>Course Name:</strong><select name="question[course]">
+   <option>aps105</option>
+  </select><br/>
+</div>
+<div id="year">
+   <strong>Year:</strong><select name="question[year]" >
+   <option></option>
+   <%  (1..14).each do |count| %>
+    <% if count<10 %>
+      <option>200<%= count %></option>
+    <% else %>
+      <option>20<%= count %></option>
+    <% end %>
+   <% end %>
+  </select><br/>
+</div>
+
+<div id="testname">
+   <strong>Test Name:</strong><select name="question[testname]" >
+   <option></option>
+   <option>Final Exam</option>
+   <option>Midterm</option>
+   <option>Quiz</option>
+   <option>Assignment</option>
+   <option>Other</option>
+  </select><br/>
+</div>
+
+<div id="qno">
+   <strong>Question Number:</strong><select name="question[qno]">
+   <option></option>
+     <%  (1..20).each do |count| %>
+   <option><%= count %></option>
+   <% end %>
+  </select><br/> 
+</div>
+
+  <%= submit_tag "Search", :name => nil, class: "btn btn-default", id: "searchbox" %> 
+  <%end%>
+
+<% if params[:search] %>
+<div class="center">
+<strong> Search Results</strong><br/>
+<% if @questions.present? %>
+<% @questions.each do |question| %>
+
+   Ques: <strong> <%= question.name %></strong><br/>
+      Description: <%= question.description %><br/>
+      Category: <%= "#{question.category}"%><br/>
+     <% if question.category == "Exam Question" %>
+          <%= "#{question.course}" " >" "#{question.year}" " >" "#{question.testname}" " > Q." "#{question.qno}" "." "#{question.subpart}" %><br/>
+     <% end %>
+     <%= link_to 'Show Answers', question_path(question) %><br/>
+        <% if can? :update, question %>
+      <%= link_to 'Edit', edit_question_path(question) %>
+      <% end %>
+      <% if can? :destroy, question %>
+      <%= link_to 'Delete', question_path(question),
+                    method: :delete, data: { confirm: 'Are you sure?' } %>
+      <% end %>
+      <hr/>
+<br/>
+<% end %>
+<%else%>
+  
+No results found!
+<% end %>
+</div>
+<% else %>
+<div class="center">
+<strong> Questions</strong><br/>
+<% @questions.each do |question| %>
+        <% if question.user %>
+          <strong>Posted by: <%= link_to "#{question.user.first_name + ' ' + question.user.last_name}", question.user %></strong><br/>
+          <% end %>
+   Ques: <strong> <%= question.name %></strong><br/>
+      Description: <%= question.description %><br/>
+     Category: <%= "#{question.category}"%><br/>
+     <% if %>
+        <% question.category == "Exam Question" %>
+          <%= "#{question.course}" " >" "#{question.year}" " >" "#{question.testname}" " > Q." "#{question.qno}" "." "#{question.subpart}" %><br/>
+     <% end %>
+     <%= link_to 'Show Answers', question_path(question) %><br/>
+      <% if can? :update, question %>
+      <%= link_to 'Edit', edit_question_path(question) %>
+      <% end %>
+      <% if can? :destroy, question %>
+      <%= link_to 'Delete', question_path(question),
+                    method: :delete, data: { confirm: 'Are you sure?' } %>
+      <% end %>
+<hr/>
+<br/>
+<% end %>
+
+</div>
+
+<% end %>

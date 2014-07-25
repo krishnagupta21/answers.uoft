@@ -1,0 +1,71 @@
+<div class="centerans">
+<p>
+  <strong>Question:</strong>
+  <%= @question.name %>
+</p>
+ 
+<p>
+  <strong>Description:</strong>
+  <%= @question.description %><br/>
+  <%= image_tag @question.qstnimg.url(:medium) %><br/>
+   <strong>Category:</strong> <%= "#{@question.category}"%><br/>
+     <% if @question.category == "Exam Question" %>
+          <%= @question.course %> > <%= @question.year %> > <%= @question.testname %> ><%= @question.qno %>.<%= @question.subpart %>
+          <% end %>
+</p>
+  <% if can? :update, @question %>
+      <%= link_to 'Edit', edit_question_path(@question) %>
+      <% end %>
+      <% if can? :destroy, @question %>
+      <%= link_to 'Delete', question_path(@question),
+                    method: :delete, data: { confirm: 'Are you sure?' } %>
+      <% end %>
+<h2>Answers</h2>
+<% @question.answers.each do |answer| %>
+<div class="answers">
+  <p>
+   
+    <% if answer.user %>
+    <% if answer.user.avatar.exists? %>
+    <%= image_tag answer.user.avatar.url(:thumb) %>
+    <% else %>
+     <%= image_tag asset_path('no-profile-image.jpg')%>
+    <% end %>
+    <%= link_to "#{answer.user.first_name + ' ' + answer.user.last_name}", answer.user %>
+    <% end %>
+    <br/>
+  </p>
+ 
+  <p>
+    
+    <%= answer.body %>
+  </p>
+</div>
+  <p>
+    <% if can? :destroy, answer %>
+  <%= link_to 'Delete Answer', [answer.question, answer],
+               method: :delete,
+               data: { confirm: 'Are you sure?' } %>
+    <% end %>
+</p>
+
+<% end %>
+<h2>Add an answer:</h2>
+<%= form_for([@question, @question.answers.build]) do |f| %>
+  <!--<p>
+    <%#= f.label :name %><br>
+    <%#= f.text_field :name %>
+  </p> -->
+  <p>
+    <%#= f.label :Answer %><br>
+    <%#= f.text_area :body %>
+    <%= f.text_area :body, id: "some-textarea", :class => "tinymce", :rows => 20, :cols => 60 %>
+<%= tinymce %>
+  </p>
+  <p>
+    <%= f.submit 'Answer', class: 'btn btn-large' %>
+  </p>
+<% end %>
+
+
+</div>

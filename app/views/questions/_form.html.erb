@@ -1,0 +1,99 @@
+<script type="text/javascript">
+$(document).ready(function() {
+  $("#course,#year,#testname,#qno,#checkbox,#subpart").hide();
+  $("#category").change(function() {
+      if ($( "#category option:selected" ).text()=="Exam Question")
+      {
+        $("#course,#year,#testname,#qno,#checkbox").show();
+
+            $('#ischecked').click(function() {
+              if($(this).is(':checked'))
+               {
+                  $("#subpart").show();
+              }
+            });
+             $('#no').click(function() {
+              if($(this).is(':checked'))
+               {
+                  $("#subpart").hide();
+              }
+            });
+      }
+      if ($( "#category option:selected" ).text()!="Exam Question")
+      {
+        $("#course,#year,#testname,#qno,#checkbox,#subpart").hide();
+      }
+
+  })
+   
+});
+</script>
+
+<%= form_for @question,:html => { :multipart => true } do |f| %>
+  <strong>Question:</strong><%= f.text_area :name , class: "form-control"%><br/>
+  <strong>Question Description:</strong> <%= f.text_area :description, class: "form-control" %><br/>
+   <strong>Add image:</strong> <%= f.file_field :qstnimg %><br/>
+
+    <strong>Category:</strong><select name="question[category]" id="category">
+  <option></option>
+  <option>Exam Question</option>
+  <option>General</option>
+  <option>Frosh Year Question</option>
+  <option>Summer Opportunities/Job Hunting</option>
+  </select><br/>
+
+
+  <div id="course">
+   <strong>Course Name:</strong><select name="question[course]">
+   <option>aps105</option>
+  </select><br/>
+</div>
+<div id="year">
+   <strong>Year:</strong><select name="question[year]" >
+   <option></option>
+   <%  (1..14).each do |count| %>
+    <% if count<10 %>
+      <option>200<%= count %></option>
+    <% else %>
+      <option>20<%= count %></option>
+    <% end %>
+   <% end %>
+  </select><br/>
+</div>
+
+<div id="testname">
+   <strong>Test Name:</strong><select name="question[testname]" >
+   <option></option>
+   <option>Final Exam</option>
+   <option>Midterm</option>
+   <option>Quiz</option>
+   <option>Assignment</option>
+   <option>Other</option>
+  </select><br/>
+</div>
+
+<div id="qno">
+   <strong>Question Number:</strong><select name="question[qno]">
+   <option></option>
+     <%  (1..20).each do |count| %>
+   <option><%= count %></option>
+   <% end %>
+  </select><br/> 
+</div>
+
+<div id="checkbox">
+ <strong> Are you asking a particular subpart?</strong>
+  <input type="radio" name="question[subpartcheckbox]" id="ischecked" value="yes">Yes 
+  <input type="radio" name="question[subpartcheckbox]" id="no" value="no">No<br/>
+</div>
+
+<div id="subpart">
+   <strong>Subpart character:</strong><select name="question[subpart]">
+   <%  (1..20).each do |count| %>
+    <option><%= count %></option>
+   <% end %>
+  </select><br/> 
+</div>
+<br/><br/>
+  <%= f.submit "Ask Question", class: "btn btn-default"%>
+<%end%>
