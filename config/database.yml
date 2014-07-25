@@ -7,15 +7,20 @@ development:
   adapter: postgresql
   encoding: unicode
   host: localhost
-  database: app-dev
+  database: ans
+  user: krishna
+  password: k21champ
+
 
 test:
   adapter: postgresql
   encoding: unicode
-  database: app-dev
+  database: ans
+  
 
 production:
- adapter: postgresql
+  adapter: postgresql
   encoding: unicode
-  database: app-dev
+  database: ans 
   pool: 5
+  
