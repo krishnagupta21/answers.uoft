@@ -58,3 +58,5 @@ gem 'cancancan', '~> 1.9'
 gem "paperclip", "~> 3.0"
 
 gem 'tinymce-rails'
+
+gem 'activerecord-reputation-system', github: 'NARKOZ/activerecord-reputation-system', branch: 'rails4', require: 'reputation_system'

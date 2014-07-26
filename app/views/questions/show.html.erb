@@ -1,5 +1,6 @@
 <div class="centerans">
 <p>
+   <strong>Posted by: <%= link_to @question.user.first_name, @question.user %></strong><br/>
   <strong>Question:</strong>
   <%= @question.name %>
 </p>
@@ -39,6 +40,11 @@
   <p>
     
     <%= answer.body %>
+    | <%= pluralize answer.reputation_for(:votes).to_i, "vote" %>
+<% if current_user && !current_user.voted_for?(answer) %>
+  | <%= link_to "up", vote_question_answer_path(answer.question_id, answer, type: "up"), method: "post" %>
+  | <%= link_to "down", vote_question_answer_path(answer.question_id, answer,  type: "down"), method: "post" %>
+<% end %>
   </p>
 </div>
   <p>

@@ -17,6 +17,14 @@ class AnswersController < ApplicationController
     redirect_to question_path(@question)
   end
  
+ def vote
+  value = params[:type] == "up" ? 1 : -1
+  @question = Question.find(params[:question_id])
+  @answer = @question.answers.find(params[:id])
+  @answer.add_or_update_evaluation(:votes, value, current_user)
+  redirect_to :back, notice: "Thank you for voting"
+end
+
   private
     def answer_params
       params.require(:answer).permit(:name, :body)
