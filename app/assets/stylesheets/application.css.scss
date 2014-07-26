@@ -12,7 +12,10 @@
  *= require_tree .
  */
 @import 'bootstrap';
+html, body {
+  height:100%;
 
+}
 .center {
   width:50%;
   height:50%;
@@ -49,4 +52,14 @@
 select {
   padding:1%;
   margin:2%;
+}
+.search 
+{
+  width:25%;
+  height:100%;
+  background:#ccc;
+  float:left;
+  margin-right:2%;
+  margin-top:-2%;
+
 }

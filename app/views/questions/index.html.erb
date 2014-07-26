@@ -1,4 +1,4 @@
- <script type="text/javascript">
+  <script type="text/javascript">
 $(document).ready(function() {
   $("#course,#year,#testname,#qno,#checkbox,#subpart").hide();
   $("#category").change(function() {
@@ -6,20 +6,28 @@ $(document).ready(function() {
       {
         $("#course,#year,#testname,#qno").show();
 
+          
       }
       if ($( "#category option:selected" ).text()!="Exam Question")
       {
         $("#course,#year,#testname,#qno,#checkbox,#subpart").hide();
+        $( "select[name='question[course]']").prop('disabled', true);
+         $("select[name='question[year]']").prop('disabled', true);
+          $("select[name='question[testname]']").prop('disabled', true);
+           $("select[name='question[qno]']").prop('disabled', true);
       }
 
   })
    
 });
 </script>
-  <%= form_tag(questions_path, :method => "get", id: "search-form", class: "navbar-form navbar-left", role: "search") do %>
-  <strong>Keywords:</strong><br/>
-  <%= text_field_tag :search, params[:search], placeholder: "Search Questions", class: "form-control", id:"searchtext" %><br/>
-    <strong>Category:</strong><select name="category" id="category">
+<div class="search">
+  <br/><br/>
+  <strong>Keywords:</strong>
+  <%= form_tag(questions_path, :method => "get", id: "search-form", class: "navbar-form navbar-left", role: "search", name: "qform") do %>
+  <%#= text_field :name, params[:name], placeholder: "Search Questions", class: "form-control", id:"searchtext" %><br/>
+  <input type="text" name="question[name]" class="form-control" placeholder = "Search Questions" id="searchtext"/><br/>
+    <strong>Category:</strong><select name="question[category]" id="category">
   <option></option>
   <option>Exam Question</option>
   <option>General</option>
@@ -27,8 +35,10 @@ $(document).ready(function() {
   <option>Summer Opportunities/Job Hunting</option>
   </select><br/>
 
+
   <div id="course">
    <strong>Course Name:</strong><select name="question[course]">
+   <option></option>
    <option>aps105</option>
   </select><br/>
 </div>
@@ -64,21 +74,21 @@ $(document).ready(function() {
    <% end %>
   </select><br/> 
 </div>
-
   <%= submit_tag "Search", :name => nil, class: "btn btn-default", id: "searchbox" %> 
   <%end%>
+</div> <!-- search -->
 
-<% if params[:search] %>
+<% if params[:name] %>
 <div class="center">
 <strong> Search Results</strong><br/>
 <% if @questions.present? %>
 <% @questions.each do |question| %>
-
+ <strong>Posted by: <%= link_to "#{question.user.first_name + ' ' + question.user.last_name}", question.user %></strong><br/>
    Ques: <strong> <%= question.name %></strong><br/>
       Description: <%= question.description %><br/>
-      Category: <%= "#{question.category}"%><br/>
-     <% if question.category == "Exam Question" %>
-          <%= "#{question.course}" " >" "#{question.year}" " >" "#{question.testname}" " > Q." "#{question.qno}" "." "#{question.subpart}" %><br/>
+       Category: <%= "#{question.category}"%><br/> 
+       <% if question.category == "Exam Question" %>
+          <%= "#{question.course}" ">" "#{question.year}" ">" "#{question.testname}" " >" "#{question.qno}" " ." "#{question.subpart}"%><br/>
      <% end %>
      <%= link_to 'Show Answers', question_path(question) %><br/>
         <% if can? :update, question %>
@@ -95,9 +105,9 @@ $(document).ready(function() {
   
 No results found!
 <% end %>
-</div>
+
 <% else %>
-<div class="center">
+
 <strong> Questions</strong><br/>
 <% @questions.each do |question| %>
         <% if question.user %>
@@ -106,9 +116,8 @@ No results found!
    Ques: <strong> <%= question.name %></strong><br/>
       Description: <%= question.description %><br/>
      Category: <%= "#{question.category}"%><br/>
-     <% if %>
-        <% question.category == "Exam Question" %>
-          <%= "#{question.course}" " >" "#{question.year}" " >" "#{question.testname}" " > Q." "#{question.qno}" "." "#{question.subpart}" %><br/>
+     <% if question.category == "Exam Question" %>
+          <%= "#{question.course}" ">" "#{question.year}" ">" "#{question.testname}" " >" "#{question.qno}" " ." "#{question.subpart}"%><br/>
      <% end %>
      <%= link_to 'Show Answers', question_path(question) %><br/>
       <% if can? :update, question %>

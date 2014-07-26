@@ -7,15 +7,24 @@ class Question < ActiveRecord::Base
   belongs_to :user
   validates_presence_of :user
 
-   def self.search(query)
-  where("name like ? AND category like ? AND course like ? AND year like ? AND testname like ? AND qno like ?", "%#{query}%","%#{query}%", "%#{query}%", "%#{query}%", "%#{query}%", "%#{query}%") 
+  def self.search(params)
+    # puts "========\n\n\n#{search}\n\n\n"
 
- # if (cateogry.matches => 'Exam Questions')
-  #  where("name like ? AND course like ? AND year like ? AND testname like ? AND qno like ?", "%#{query}%", "%#{query}%", "%#{query}%", "%#{query}%", "%#{query}%") 
-  #else
-   #where("name like ?","%#{query}%")
+    name = params[:question][:name]
+    category = params[:question][:category]
+    course = params[:question][:course]
+    q = ""
+    #if name and name != ""
+   #   q += " name like ? "
     #end
-
-end
+    #if category and category != ""
+    #  q +=" name like = ? "
+    #end
+    #if course and course != ""
+    #  q +=" name like = ? "
+   # end
+   
+    where("name like ? AND category like ? AND course like ?", "%#{name}%", "%#{category}%", "%#{course}%") 
+  end
 
 end

@@ -1,12 +1,15 @@
 class QuestionsController < ApplicationController
 before_action :authenticate_user!, :except => [:show, :index]
 load_and_authorize_resource except: :show
- def index
-    if params[:search]
-       @questions = Question.search(params[:search]).order("created_at DESC")
+  def index
+    # puts "======\n\n\n #{params}\n===="
+    if params[:question]
+       @questions = Question.search(params).order("created_at DESC") 
     else
-    @questions = Question.all
+      @questions = Question.all
     end
+
+
   end
 
   def new 
