@@ -4,61 +4,68 @@
 
 <div class="col-md-7">
 <p>
-   <strong>Posted by: <%= link_to @question.user.first_name + " " + @question.user.last_name , @question.user %></strong><br/>
-  <strong>Question:</strong>
-  <%= @question.name %>
-</p>
- 
-<p>
-  <strong>Description:</strong>
-  <%= @question.description %><br/>
-  <%= image_tag @question.qstnimg.url(:medium) %><br/>
-   <strong>Category:</strong> <%= "#{@question.category}"%><br/>
-     <% if @question.category == "Exam Question" %>
-          <%= @question.course %> > <%= @question.year %> > <%= @question.testname %> ><%= @question.qno %>.<%= @question.subpart %>
-          <% end %>
-</p>
-  <% if can? :update, @question %>
+  <strong>Posted by: <%= link_to @question.user.first_name + ' ' + @question.user.last_name, @question.user %></strong><br/>
+ <% if @question.category == "Exam Question" %>
+       <strong class="caps"> 
+        <%= @question.category%><span class="glyphicon glyphicon glyphicon-chevron-right"></span>
+         <%= @question.course %><span class="glyphicon glyphicon glyphicon-chevron-right"></span>
+          <%=@question.year%> <span class="glyphicon glyphicon glyphicon-chevron-right"></span>
+          <%=@question.testname%> <span class="glyphicon glyphicon glyphicon-chevron-right"></span>
+          <%=@question.qno%>.<%= @question.subpart %><br/>
+     <% end %> </strong>
+   <strong>Question: </strong> <%= @question.name %><br/>
+   <strong> Description:</strong> <%= @question.description %><br/>
+   <% if @question.qstnimg.present? %>
+    <%= image_tag @question.qstnimg.url(:medium) %>   <br/>
+   <% end %>
+
+    <% if @question.category != "Exam Question" %>
+   <strong> Category: </strong><%= @question.category%><br/> 
+   <% end %>
+       
+     <%= link_to 'Show Answers', question_path(@question) %><br/>
+        <% if can? :update, @question %>
       <%= link_to 'Edit', edit_question_path(@question) %>
       <% end %>
       <% if can? :destroy, @question %>
       <%= link_to 'Delete', question_path(@question),
                     method: :delete, data: { confirm: 'Are you sure?' } %>
       <% end %>
-<h2>Answers</h2>
+      <hr/>
+<br/>
+  
+<h2><strong>Answers</strong></h2>
 <% @question.answers.each do |answer| %>
 <div class="answers">
+  
   <p>
-   
-    <% if answer.user %>
+    <%= raw answer.body %>
+  </p>
+  <br/>
+        <%= pluralize answer.reputation_for(:votes).to_i, "vote" %>
+        <% if current_user && !current_user.voted_for?(answer) %>
+      | <%= link_to "up", vote_question_answer_path(answer.question_id, answer, type: "up"), method: "post" %>
+      | <%= link_to "down", vote_question_answer_path(answer.question_id, answer,  type: "down"), method: "post" %><br/>
+  <% end %>
+ 
+   <% if answer.user %>
+   <div id="ansuser">
     <% if answer.user.avatar.exists? %>
     <%= image_tag answer.user.avatar.url(:thumb) %>
     <% else %>
-     <%= image_tag asset_path('no-profile-image.jpg')%>
+     <%= image_tag asset_path('no-profile-image.jpg'), class: 'default-image' %>
     <% end %>
     <%= link_to "#{answer.user.first_name + ' ' + answer.user.last_name}", answer.user %>
+  </div>
     <% end %>
-    <br/>
-  </p>
- 
-  <p>
-    
-    <%= answer.body %>
-    | <%= pluralize answer.reputation_for(:votes).to_i, "vote" %>
-<% if current_user && !current_user.voted_for?(answer) %>
-  | <%= link_to "up", vote_question_answer_path(answer.question_id, answer, type: "up"), method: "post" %>
-  | <%= link_to "down", vote_question_answer_path(answer.question_id, answer,  type: "down"), method: "post" %>
-<% end %>
-  </p>
-</div>
-  <p>
+
     <% if can? :destroy, answer %>
   <%= link_to 'Delete Answer', [answer.question, answer],
                method: :delete,
                data: { confirm: 'Are you sure?' } %>
     <% end %>
 </p>
-
+</div>
 <% end %>
 <h2>Add an answer:</h2>
 <%= form_for([@question, @question.answers.build]) do |f| %>
@@ -70,7 +77,7 @@
     <%#= f.label :Answer %><br>
     <%#= f.text_area :body %>
 
-    <%= raw f.text_area :body, id: "some-textarea", :class => "tinymce", :rows => 20, :cols => 60 %>
+    <%= f.text_area :body, id: "some-textarea", :class => "tinymce", :rows => 15, :cols => 40 %>
 <%= tinymce %>
   </p>
   <p>

@@ -1,4 +1,4 @@
-<% @questions.each do |question| %>
+ <% @questions.each do |question| %>
  <strong>Posted by: <%= link_to "#{question.user.first_name + ' ' + question.user.last_name}", question.user %></strong><br/>
  <% if question.category == "Exam Question" %>
        <strong class="caps"> 
