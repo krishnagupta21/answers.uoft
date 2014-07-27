@@ -1,5 +1,5 @@
 class QuestionsController < ApplicationController
-before_action :authenticate_user!, :except => [:show, :index]
+before_action :authenticate_user!, :except => [:show, :index, :search]
 load_and_authorize_resource except: :show
   def index
     # puts "======\n\n\n #{params}\n===="
