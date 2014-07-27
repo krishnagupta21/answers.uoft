@@ -1,4 +1,8 @@
-  <div class="center">
+<div class="col-md-4">
+<%= render 'questions/searchrest' %>
+</div>
+
+<div class="col-md-7 top">
   <%= form_for @user,  :html => { :multipart => true } do |form| %>
 
   <div><%= form.label :first_name %><br />

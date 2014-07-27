@@ -1,4 +1,9 @@
-<div class="center">
+
+<div class="col-md-4">
+<%= render 'searchrest' %>
+</div>
+
+<div class="col-md-7">
   <% if @question.errors.any? %>
  <div id="error_explanation">
   <h2><%= pluralize(@question.errors.count, "error") %> prohibited this from being saved:   </h2>
@@ -9,6 +14,6 @@
   <% end %>
   <% end %>
 
-<h1>New  question</h1>
+<h1>New  Question</h1>
 <%= render 'form' %>
 </div>
