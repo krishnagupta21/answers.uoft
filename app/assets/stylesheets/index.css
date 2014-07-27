@@ -1,0 +1,11 @@
+#searchtexts {
+  width:300px;
+}
+#categorys {
+  width:200px;
+  margin-top: 2%;
+}
+
+#courses,#years,#testnames  {
+   margin-top: 2%;
+}

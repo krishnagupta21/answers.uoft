@@ -1,6 +1,10 @@
-<div class="centerans">
+<div class="col-md-4">
+<%= render 'searchrest' %>
+</div>
+
+<div class="col-md-7">
 <p>
-   <strong>Posted by: <%= link_to @question.user.first_name, @question.user %></strong><br/>
+   <strong>Posted by: <%= link_to @question.user.first_name + " " + @question.user.last_name , @question.user %></strong><br/>
   <strong>Question:</strong>
   <%= @question.name %>
 </p>

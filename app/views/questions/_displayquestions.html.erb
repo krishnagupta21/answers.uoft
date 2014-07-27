@@ -1,0 +1,27 @@
+<% @questions.each do |question| %>
+ <strong>Posted by: <%= link_to "#{question.user.first_name + ' ' + question.user.last_name}", question.user %></strong><br/>
+ <% if question.category == "Exam Question" %>
+       <strong class="caps"> 
+        <%= "#{question.category}"%><span class="glyphicon glyphicon glyphicon-chevron-right"></span>
+         <%= "#{question.course}" %><span class="glyphicon glyphicon glyphicon-chevron-right"></span>
+          <%="#{question.year}"%> <span class="glyphicon glyphicon glyphicon-chevron-right"></span>
+          <%="#{question.testname}"%> <span class="glyphicon glyphicon glyphicon-chevron-right"></span>
+          <%="#{question.qno}" " ." "#{question.subpart}"%><br/>
+     <% end %> </strong>
+   <strong>Question: </strong> <%= question.name %><br/>
+   <strong> Description:</strong> <%= question.description %><br/>
+    <% if question.category != "Exam Question" %>
+   <strong> Category: </strong><%= "#{question.category}"%><br/> 
+   <% end %>
+       
+     <%= link_to 'Show Answers', question_path(question) %><br/>
+        <% if can? :update, question %>
+      <%= link_to 'Edit', edit_question_path(question) %>
+      <% end %>
+      <% if can? :destroy, question %>
+      <%= link_to 'Delete', question_path(question),
+                    method: :delete, data: { confirm: 'Are you sure?' } %>
+      <% end %>
+      <hr/>
+<br/>
+<% end %>

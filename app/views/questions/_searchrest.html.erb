@@ -1,0 +1,83 @@
+<link type="text/css" href="../../assets/stylesheets/index.css" rel="alternate stylesheet"  />
+  <script type="text/javascript">
+$(document).ready(function() {
+  $("#show").hide();
+  $("#categorys").change(function() {
+      if ($( "#categorys option:selected" ).text()=="Exam Question")
+      {
+        $("#show").show();
+        $( "select[name='question[course]']").prop('disabled', false);
+         $("select[name='question[year]']").prop('disabled', false);
+          $("select[name='question[testname]']").prop('disabled', false);
+           $("select[name='question[qno]']").prop('disabled', false);
+
+          
+      }
+      if ($( "#categorys option:selected" ).text()!="Exam Question")
+      {
+        $("#show").hide();
+        $( "select[name='question[course]']").prop('disabled', true);
+         $("select[name='question[year]']").prop('disabled', true);
+          $("select[name='question[testname]']").prop('disabled', true);
+           $("select[name='question[qno]']").prop('disabled', true);
+      }
+
+
+  })
+   
+});
+</script>
+
+<div id="mainforms">
+  <br/><br/>
+<%= form_tag(questions_path, :method => "get", id: "search-form", class: "navbar-form navbar-left", role: "search", name: "qform") do %>
+  <div class="form-group">
+    <input type="text" name="question[name]" class="form-control" placeholder = "Search Questions" id="searchtext"/><br/>
+  </div>
+
+  <div class="form-group" id="selects">
+    <select name="question[category]" id="categorys" class="form-control">
+      <option>All</option>
+      <option>Exam Question</option>
+      <option>General</option>
+      <option>Frosh Year Question</option>
+      <option>Summer Opportunities/Job Hunting</option>
+    </select>
+  </div><br/><br/>
+<div id="show">
+   <div class="form-group" id="courses">
+   <select name="question[course]" class="form-control" id="selectsizes">
+   <option><strong>Course Name:</strong></option>
+   <option>aps105</option>
+  </select>
+</div><br/>
+
+<div id="years" class="form-group">
+   <select name="question[year]" class="form-control" id="selectsizes">
+   <option><strong>Year:</strong></option>
+   <%  (1..14).each do |count| %>
+    <% if count<10 %>
+      <option>200<%= count %></option>
+    <% else %>
+      <option>20<%= count %></option>
+    <% end %>
+   <% end %>
+  </select>
+</div><br/>
+
+<div id="testnames" class="form-group">
+   <select name="question[testname]" class="form-control" id="selectsizes">
+   <option><strong>Test Name:</strong></option>
+   <option>Final Exam</option>
+   <option>Midterm</option>
+   <option>Quiz</option>
+   <option>Assignment</option>
+   <option>Other</option>
+  </select>
+</div>
+<br/><br/>
+</div>
+  <%= submit_tag "Search", :name => nil, class: "btn btn-default", id: "searchboxs" %> 
+<% end %>
+  
+</div> <!-- search -->

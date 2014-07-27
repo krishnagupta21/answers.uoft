@@ -1,0 +1,29 @@
+#mainform {
+  width:550px;
+  height:20%;
+  position:relative;
+  top:5%;
+  left:30%;
+}
+
+#searchtext {
+  width:300px;
+}
+#category {
+  width:200px;
+}
+#select {
+   margin-left:10px;
+}
+#course {
+  margin-left:8%;
+}
+#year,#testname {
+  margin-left:15px;
+}
+#selectsize {
+  width:130px;
+}
+#searchbox {
+  margin-left:40%;
+}

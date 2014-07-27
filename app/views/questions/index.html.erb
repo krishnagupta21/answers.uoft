@@ -1,136 +1,24 @@
-  <script type="text/javascript">
-$(document).ready(function() {
-  $("#course,#year,#testname,#qno,#checkbox,#subpart").hide();
-  $("#category").change(function() {
-      if ($( "#category option:selected" ).text()=="Exam Question")
-      {
-        $("#course,#year,#testname,#qno").show();
 
-          
-      }
-      if ($( "#category option:selected" ).text()!="Exam Question")
-      {
-        $("#course,#year,#testname,#qno,#checkbox,#subpart").hide();
-        $( "select[name='question[course]']").prop('disabled', true);
-         $("select[name='question[year]']").prop('disabled', true);
-          $("select[name='question[testname]']").prop('disabled', true);
-           $("select[name='question[qno]']").prop('disabled', true);
-      }
-
-  })
-   
-});
-</script>
-<div class="search">
-  <br/><br/>
-  <strong>Keywords:</strong>
-  <%= form_tag(questions_path, :method => "get", id: "search-form", class: "navbar-form navbar-left", role: "search", name: "qform") do %>
-  <%#= text_field :name, params[:name], placeholder: "Search Questions", class: "form-control", id:"searchtext" %><br/>
-  <input type="text" name="question[name]" class="form-control" placeholder = "Search Questions" id="searchtext"/><br/>
-    <strong>Category:</strong><select name="question[category]" id="category">
-  <option></option>
-  <option>Exam Question</option>
-  <option>General</option>
-  <option>Frosh Year Question</option>
-  <option>Summer Opportunities/Job Hunting</option>
-  </select><br/>
-
-
-  <div id="course">
-   <strong>Course Name:</strong><select name="question[course]">
-   <option></option>
-   <option>aps105</option>
-  </select><br/>
+<div class="col-md-4">
+<%= render 'searchrest' %>
 </div>
-<div id="year">
-   <strong>Year:</strong><select name="question[year]" >
-   <option></option>
-   <%  (1..14).each do |count| %>
-    <% if count<10 %>
-      <option>200<%= count %></option>
-    <% else %>
-      <option>20<%= count %></option>
-    <% end %>
-   <% end %>
-  </select><br/>
-</div>
-
-<div id="testname">
-   <strong>Test Name:</strong><select name="question[testname]" >
-   <option></option>
-   <option>Final Exam</option>
-   <option>Midterm</option>
-   <option>Quiz</option>
-   <option>Assignment</option>
-   <option>Other</option>
-  </select><br/>
-</div>
-
-<div id="qno">
-   <strong>Question Number:</strong><select name="question[qno]">
-   <option></option>
-     <%  (1..20).each do |count| %>
-   <option><%= count %></option>
-   <% end %>
-  </select><br/> 
-</div>
-  <%= submit_tag "Search", :name => nil, class: "btn btn-default", id: "searchbox" %> 
-  <%end%>
-</div> <!-- search -->
-
 <% if params[:question] %>
-<div class="center">
-<strong> Search Results</strong><br/>
-<% if @questions.present? %>
-<% @questions.each do |question| %>
- <strong>Posted by: <%= link_to "#{question.user.first_name + ' ' + question.user.last_name}", question.user %></strong><br/>
-   Ques: <strong> <%= question.name %></strong><br/>
-      Description: <%= question.description %><br/>
-       Category: <%= "#{question.category}"%><br/> 
-       <% if question.category == "Exam Question" %>
-          <%= "#{question.course}" ">" "#{question.year}" ">" "#{question.testname}" " >" "#{question.qno}" " ." "#{question.subpart}"%><br/>
-     <% end %>
-     <%= link_to 'Show Answers', question_path(question) %><br/>
-        <% if can? :update, question %>
-      <%= link_to 'Edit', edit_question_path(question) %>
-      <% end %>
-      <% if can? :destroy, question %>
-      <%= link_to 'Delete', question_path(question),
-                    method: :delete, data: { confirm: 'Are you sure?' } %>
-      <% end %>
-      <hr/>
-<br/>
-<% end %>
-<%else%>
+  <div class="col-md-8">
+  <h1><strong>Search Results</strong></h1><br/><br/>
+  <% if @questions.present? %>
+    <%= render 'displayquestions' %>
+  <%else%>
   
-No results found!
-<% end %>
-
+    No results found!
+  <% end %>
+  </div>
 <% else %>
+  <div class="col-md-7">
+  <h1><strong>Recent Questions</strong></h1><br/><br/>
+    <% @questions.each do |question| %>
+       <%= render 'displayquestions' %>
+    <% end %>
 
-<strong> Questions</strong><br/>
-<% @questions.each do |question| %>
-        <% if question.user %>
-          <strong>Posted by: <%= link_to "#{question.user.first_name + ' ' + question.user.last_name}", question.user %></strong><br/>
-          <% end %>
-   Ques: <strong> <%= question.name %></strong><br/>
-      Description: <%= question.description %><br/>
-     Category: <%= "#{question.category}"%><br/>
-     <% if question.category == "Exam Question" %>
-          <%= "#{question.course}" ">" "#{question.year}" ">" "#{question.testname}" " >" "#{question.qno}" " ." "#{question.subpart}"%><br/>
-     <% end %>
-     <%= link_to 'Show Answers', question_path(question) %><br/>
-      <% if can? :update, question %>
-      <%= link_to 'Edit', edit_question_path(question) %>
-      <% end %>
-      <% if can? :destroy, question %>
-      <%= link_to 'Delete', question_path(question),
-                    method: :delete, data: { confirm: 'Are you sure?' } %>
-      <% end %>
-<hr/>
-<br/>
-<% end %>
-
-</div>
+  </div>
 
 <% end %>

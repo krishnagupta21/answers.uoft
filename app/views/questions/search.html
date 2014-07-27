@@ -1,0 +1,38 @@
+<html>
+<head>
+<link href='http://fonts.googleapis.com/css?family=Cabin+Sketch' rel='stylesheet' type='text/css'>
+  <style type="text/css">
+  body {
+	font-family: 'Cabin Sketch', cursive;
+  }
+  .search-container {
+	background:url(../../assets/images/input-text.png)  no-repeat;
+	height:100px;
+	width:400px;
+	margin:auto;
+	position:relative;
+	top:40%;
+   
+}
+#searchtext {
+font-family: 'Cabin Sketch', cursive;
+    line-height:8px;/*results in nice text vertical alignment*/
+    border:none;
+    background:transparent;
+    padding:0 30px;/*don't start input text directly from the edge*/
+	margin-top:20px;
+	 height:40px;
+    width:300px;/*full width - grey on the side - 2*10px padding*/
+}
+#searchtext:selected {
+	border:none;
+}
+  </style>
+</head>
+<body>
+  <div class="search-container">
+    <input type="text" name="question[name]" placeholder = "Search Questions" id="searchtext"/>
+    <img src="../../assets/images/ss.jpg"/>
+  </div>
+</body>
+</html>

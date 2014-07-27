@@ -1,4 +1,5 @@
 Ans::Application.routes.draw do
+  get "questions/search"
   get "users/show"
   devise_for :users, :controllers => { registrations: 'registrations' }
   resources :users
@@ -10,5 +11,5 @@ Ans::Application.routes.draw do
 devise_scope :user do
      get "profile", to: "registrations#show"
 end
-root to: 'questions#index'
+root to: 'questions#search'
 end
