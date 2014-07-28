@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   validates_attachment_content_type :avatar, :content_type => /\Aimage/
   has_many :questions
   has_many :answers
-
+  validates_presence_of :first_name, :last_name 
   has_many :evaluations, class_name: "RSEvaluation", as: :source
   has_reputation :votes, source: {reputation: :votes, of: :answers}, aggregated_by: :sum
 

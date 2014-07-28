@@ -5,7 +5,10 @@ class Question < ActiveRecord::Base
 
   has_many :answers, dependent: :destroy
   belongs_to :user
-  validates_presence_of :user
+  validates_presence_of :user, :name, :description, :category
+  validates_length_of :name, :description, :minimum =>30
+
+  validates_presence_of :course,:year, :testname, :qno, :if => lambda {category == "Exam Question"}
 
   def self.search(params)
     # puts "========\n\n\n#{search}\n\n\n"
@@ -13,18 +16,9 @@ class Question < ActiveRecord::Base
     name = params[:question][:name]
     category = params[:question][:category]
     course = params[:question][:course]
-    q = ""
-    #if name and name != ""
-   #   q += " name like ? "
-    #end
-    #if category and category != ""
-    #  q +=" name like = ? "
-    #end
-    #if course and course != ""
-    #  q +=" name like = ? "
-   # end
-   
-    where("name like ? AND category like ? AND course like ?", "%#{name}%", "%#{category}%", "%#{course}%") 
+    testname = params[:question][:course]
+    where("name like ? AND category like ? AND course like ? AND testname like ?", "%#{name}%", "%#{category}%", "%#{course}%", "%#{testname}") 
   end
+
 
 end

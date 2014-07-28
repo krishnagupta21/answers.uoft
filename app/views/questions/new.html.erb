@@ -4,16 +4,16 @@
 </div>
 
 <div class="col-md-7">
-  <%# if @question.errors.any? %>
- <!--<div id="error_explanation">
-  <h2><%= pluralize(@question.errors.count, "error") %> prohibited this from being saved:   </h2>
+<% if @question.errors.any? %>
+<div class="alert alert-error">
+   <a href="#" data-dismiss="alert" class="close">×</a>
+  <% @question.errors.full_messages.each do |msg| %>
   <ul>
-   <% @question.errors.full_messages.each do |msg| %>
     <li><%= msg %></li>
   </ul>
   <% end %>
-  <% end %> -->
-
+<% end %> 
+</div>
 <h1>New  Question</h1>
 <%= render 'form' %>
 </div>

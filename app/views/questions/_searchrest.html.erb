@@ -51,6 +51,16 @@ $(document).ready(function() {
    <option>aps105</option>
   </select>
 </div><br/>
+<div id="testnames" class="form-group">
+   <select name="question[testname]" class="form-control" id="selectsizes">
+   <option><strong>Test Name:</strong></option>
+   <option>Final Exam</option>
+   <option>Midterm</option>
+   <option>Quiz</option>
+   <option>Assignment</option>
+   <option>Other</option>
+  </select>
+</div><br/>
 
 <div id="years" class="form-group">
    <select name="question[year]" class="form-control" id="selectsizes">
@@ -63,20 +73,11 @@ $(document).ready(function() {
     <% end %>
    <% end %>
   </select>
-</div><br/>
+  <br/><br/>
+</div>
+</div>
 
-<div id="testnames" class="form-group">
-   <select name="question[testname]" class="form-control" id="selectsizes">
-   <option><strong>Test Name:</strong></option>
-   <option>Final Exam</option>
-   <option>Midterm</option>
-   <option>Quiz</option>
-   <option>Assignment</option>
-   <option>Other</option>
-  </select>
-</div>
-<br/><br/>
-</div>
+
   <%= submit_tag "Search", :name => nil, class: "btn btn-default", id: "searchboxs" %> 
 <% end %>
   

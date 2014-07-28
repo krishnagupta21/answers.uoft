@@ -1,11 +1,11 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-  $("#course,#year,#testname,#qno,#checkbox,#subpart").hide();
+  $("#coursed,#yeard,#testnamed,#qnod,#checkbox,#subpart").hide();
   $("#category").change(function() {
       if ($( "#category option:selected" ).text()=="Exam Question")
       {
-        $("#course,#year,#testname,#qno,#checkbox").show();
+        $("#coursed,#yeard,#testnamed,#qnod,#checkbox").show();
 
             $('#ischecked').click(function() {
               if($(this).is(':checked'))
@@ -22,7 +22,7 @@ $(document).ready(function() {
       }
       if ($( "#category option:selected" ).text()!="Exam Question")
       {
-        $("#course,#year,#testname,#qno,#checkbox,#subpart").hide();
+        $("#coursed,#yeard,#testnamed,#qnod,#checkbox,#subpart").hide();
       }
 
   })
