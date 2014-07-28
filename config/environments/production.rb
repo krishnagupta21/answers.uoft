@@ -89,6 +89,6 @@ ActionMailer::Base.smtp_settings = {
   :authentication => :plain,
   :user_name      => ENV['krishnagupta21'],
   :password       => ENV['k21champ'],
-  :domain         => http://protected-island-7278.herokuapp.com/
+  :domain         => "http://protected-island-7278.herokuapp.com/"
 }
 end
