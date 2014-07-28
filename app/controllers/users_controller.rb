@@ -5,7 +5,12 @@ class UsersController < ApplicationController
 
   def create
   @user = User.create( user_params )
-  @user.save
+    if @user.save
+      UserNotifier.send_signup_email(@user).deliver
+      redirect_to(@user, :notice => 'User created')
+    else
+      render :action => 'new'
+    end
   end
 
    def edit

@@ -63,4 +63,4 @@ gem 'activerecord-reputation-system', github: 'NARKOZ/activerecord-reputation-sy
 
 gem 'will_paginate', '~> 3.0'
 
-gem 'mailcatcher'
+gem 'sendgrid'
