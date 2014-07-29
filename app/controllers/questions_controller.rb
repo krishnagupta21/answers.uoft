@@ -2,12 +2,14 @@ class QuestionsController < ApplicationController
 before_action :authenticate_user!, :except => [:show, :index, :search]
 load_and_authorize_resource except: :show
   def index
-    # puts "======\n\n\n #{params}\n===="
+    
     if params[:question]
        @questions = Question.search(params).order("created_at DESC") 
     else
       @questions = Question.all
+    
     end
+      @questions = Question.paginate(:page => params[:page], :per_page => 10)
 
 
   end

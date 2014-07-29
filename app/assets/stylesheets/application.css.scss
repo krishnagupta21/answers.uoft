@@ -14,8 +14,8 @@
 @import 'bootstrap';
 html, body {
   height:100%;
-  width:100%;
-  overflow-x:hidden;
+  max-width:100%;
+  
 font-family: 'Rajdhani', sans-serif;
 }
 h1 {
@@ -51,6 +51,8 @@ h1 {
     font-size: 1.5em;
     display: block;
     padding: 4px;
+    padding-right:0;
+    margin-right:0;
     -webkit-border-radius: 8px;
     -moz-border-radius: 8px;
     border-radius: 8px;
