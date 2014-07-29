@@ -9,8 +9,12 @@ class Ability
     if user.role == 'admin' # super@krishna.com, admin123
         can :manage, :all
     else
-         can :manage, Question, user_id: user.id
+        can :manage, Question, user_id: user.id
         can :manage, Answer, user_id: user.id
+        can :upvote, Answer
+        can :downvote, Answer
+        cannot :upvote, Answer, :user_id => user.id
+        cannot :downvote, Answer, :user_id => user.id
         can :update, User do |user2|
             user2.try(:id) == user.id
 end

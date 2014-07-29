@@ -42,12 +42,33 @@
     <%= raw answer.body %>
   </p>
   <br/>
-        <%= pluralize answer.reputation_for(:votes).to_i, "vote" %>
-        <% if current_user && !current_user.voted_for?(answer) %>
-      | <%= link_to "up", vote_question_answer_path(answer.question_id, answer, type: "up"), method: "post" %>
-      | <%= link_to "down", vote_question_answer_path(answer.question_id, answer,  type: "down"), method: "post" %><br/>
+        <%#= pluralize answer.reputation_for(:votes).to_i, "vote" %>
+    <%# if can? :vote, answer %>
+      <%# if current_user && !current_user.voted_for?(answer) %>
+        <%#= link_to "up", vote_question_answer_path(answer.question_id, answer, type: "up"), method: "post" %>
+        <%#= link_to "down", vote_question_answer_path(answer.question_id, answer,  type: "down"), method: "post" %>
+      <%# end %>
+    <%# end %>
+    Likes: <%= answer.get_upvotes.size %> |
+    Dislikes: <%= answer.get_downvotes.size %><br/>
+  <% if can? :upvote, answer %>
+    <% if user_signed_in? %>
+      <% if current_user.voted_for? answer %>
+        <% if current_user.voted_as_when_voted_for answer %> 
+          Liked 
+          <%= link_to "Dislike", dislike_question_answer_path(answer.question_id, answer), method: :put %>
+        <% else %>
+            <%= link_to "Like", like_question_answer_path(answer.question_id, answer), method: :put %>
+            Disliked
+        <% end %>
+      <% else %>
+        <%= link_to "Like", like_question_answer_path(answer.question_id, answer), method: :put %>
+        <%= link_to "Dislike", dislike_question_answer_path(answer.question_id, answer), method: :put %>
+      <% end %>
+    <% else %>
+    <%= link_to('Sign up/Sign in to vote', new_user_session_path)  %> 
+    <% end %>
   <% end %>
- 
    <% if answer.user %>
    <div id="ansuser">
     <% if answer.user.avatar.exists? %>
@@ -56,9 +77,14 @@
      <%= image_tag asset_path('no-profile-image.jpg'), class: 'default-image' %>
     <% end %>
     <%= link_to "#{answer.user.first_name + ' ' + answer.user.last_name}", answer.user %>
+    <strong>(<% if answer.user.score>0 %>
+      <%= answer.user.score %>
+      <% else %>
+      <%= 0 %>
+      <% end %>)</strong>
   </div>
     <% end %>
-
+      <br/>
     <% if can? :destroy, answer %>
   <%= link_to 'Delete Answer', [answer.question, answer],
                method: :delete,

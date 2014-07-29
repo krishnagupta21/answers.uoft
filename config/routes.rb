@@ -5,8 +5,11 @@ Ans::Application.routes.draw do
   resources :users
   resources :questions do 
      resources :answers do
-       member { post :vote }
-     end
+        member do
+          put "like", to: "answers#upvote"
+          put "dislike", to: "answers#downvote"
+        end
+      end
   end
 devise_scope :user do
      get "profile", to: "registrations#show"

@@ -59,8 +59,10 @@ gem "paperclip", "~> 3.0"
 
 gem 'tinymce-rails'
 
-gem 'activerecord-reputation-system', github: 'NARKOZ/activerecord-reputation-system', branch: 'rails4', require: 'reputation_system'
+#gem 'activerecord-reputation-system', github: 'NARKOZ/activerecord-reputation-system', branch: 'rails4', require: 'reputation_system'
 
 gem 'will_paginate', '~> 3.0'
 
 gem 'sendgrid'
+
+gem 'acts_as_votable','~> 0.10.0'

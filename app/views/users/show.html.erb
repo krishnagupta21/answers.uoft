@@ -15,7 +15,13 @@
   <div class="col-md-5">
     <strong>Name: </strong><%= @user.first_name %> <%= @user.last_name %><br/>
     <strong>Email: </strong><%= @user.email%><br/>
-      <strong> Points: </strong><%= current_user.reputation_for(:votes).to_i %><br/>
+      <strong> Points: </strong>
+      <% if @user.score>0 %>
+      <%= @user.score %>
+      <% else %>
+      <%= 0 %>
+      <% end %>
+      <br/>
     <% if can? :update, @user %>
     <%= link_to 'Edit Profile', edit_user_path(@user) %>
     <% end %>

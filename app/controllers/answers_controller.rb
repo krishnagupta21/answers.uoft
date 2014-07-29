@@ -17,12 +17,32 @@ class AnswersController < ApplicationController
     redirect_to question_path(@question)
   end
  
- def vote
-  value = params[:type] == "up" ? 1 : -1
+ #def vote
+  #value = params[:type] == "up" ? 1 : -1
+  #@question = Question.find(params[:question_id])
+  #@answer = @question.answers.find(params[:id])
+  #@answer.add_or_update_evaluation(:votes, value, current_user)
+  #redirect_to :back, notice: "Thank you for voting"
+#end
+
+def upvote
   @question = Question.find(params[:question_id])
   @answer = @question.answers.find(params[:id])
-  @answer.add_or_update_evaluation(:votes, value, current_user)
-  redirect_to :back, notice: "Thank you for voting"
+  @answer.liked_by current_user
+  user = @answer.user
+  user.increment(:score, 1) 
+  user.save
+  redirect_to @question
+end
+
+def downvote
+  @question = Question.find(params[:question_id])
+  @answer = @question.answers.find(params[:id])
+  @answer.downvote_from current_user
+  user = @answer.user
+  user.decrement(:score, 1) 
+  user.save
+  redirect_to @question
 end
 
   private
