@@ -1,4 +1,4 @@
-
+<%= javascript_include_tag "jquery-ui.min" %>
 <script type="text/javascript">
 $(document).ready(function() {
   $("#coursed,#yeard,#testnamed,#qnod,#checkbox,#subpart").hide();
@@ -26,14 +26,43 @@ $(document).ready(function() {
       }
 
   })
+   var availableTags = [
+      "ActionScript",
+      "AppleScript",
+      "Asp",
+      "BASIC",
+      "C",
+      "C++",
+      "Clojure",
+      "COBOL",
+      "ColdFusion",
+      "Erlang",
+      "Fortran",
+      "Groovy",
+      "Haskell",
+      "Java",
+      "JavaScript",
+      "Lisp",
+      "Perl",
+      "PHP",
+      "Python",
+      "Ruby",
+      "Scala",
+      "Scheme"
+    ];
+    $( "#tags" ).autocomplete({
+      source: availableTags
+    });
    
 });
 </script>
+    <%= stylesheet_link_tag "jquery-ui" %>
 <style type="text/css">
 #coursed,#yeard,#testnamed,#qnod, #checkbox, #subpart {
   margin-top:2%;
 }
 </style>
+<div class="col-md-7">
 <%= form_for @question,:html => { :multipart => true } do |f| %>
   <strong>Question:</strong><%= f.text_area :name , class: "form-control"%><br/>
   <strong>Question Description:</strong> <%= f.text_area :description, class: "form-control" %><br/>
@@ -47,12 +76,12 @@ $(document).ready(function() {
   <option>Summer Opportunities/Job Hunting</option>
   </select><br/>
 
-
-  <div id="coursed">
-   <strong>Course Name: </strong><select name="question[course]">
-   <option>aps105</option>
-  </select><br/>
+  
+<div class="ui-widget" id="coursed">
+  <strong>Course: </strong>
+  <input id="tags" name="question[course]">
 </div>
+ 
 <div id="yeard">
    <strong>Year: </strong><select name="question[year]" >
    <option></option>
@@ -102,3 +131,4 @@ $(document).ready(function() {
 <br/><br/>
   <%= f.submit "Ask Question", class: "btn btn-default"%>
 <%end%>
+</div>
