@@ -1,4 +1,6 @@
 class Question < ActiveRecord::Base
+ # include PublicActivity::Model
+  #tracked owner: ->(controller, model) {controller && controller.current_user}
 
   has_attached_file :qstnimg, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/:style/missing.png"
   validates_attachment_content_type :qstnimg, :content_type => /\Aimage/

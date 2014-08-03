@@ -1,7 +1,10 @@
 Ans::Application.routes.draw do
+ 
   get "questions/search"
   get "users/show"
   devise_for :users, :controllers => { registrations: 'registrations' }
+
+  resources :activities, only: :index
   resources :users
   resources :questions do 
      resources :answers do

@@ -1,3 +1,4 @@
+<%= javascript_include_tag "jquery-ui.min" %>
 <%= stylesheet_link_tag "index" %>
   <script type="text/javascript">
 $(document).ready(function() {
@@ -27,7 +28,8 @@ $(document).ready(function() {
    
 });
 </script>
-
+<%= javascript_include_tag "courselist" %>
+<%= stylesheet_link_tag "jquery-ui" %>
 <div id="mainforms">
   <br/><br/>
 <%= form_tag(questions_path, :method => "get", id: "search-form", class: "navbar-form navbar-left", role: "search", name: "qform") do %>
@@ -45,11 +47,8 @@ $(document).ready(function() {
     </select>
   </div><br/><br/>
 <div id="show">
-   <div class="form-group" id="courses">
-   <select name="question[course]" class="form-control" id="selectsizes">
-   <option><strong>Course Name:</strong></option>
-   <option>aps105</option>
-  </select>
+   <div class="ui-widget form-group" id="courses">
+  <input id="tags" class="form-control" name="question[course]" placeholder="Select Course">
 </div><br/>
 <div id="testnames" class="form-group">
    <select name="question[testname]" class="form-control" id="selectsizes">

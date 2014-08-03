@@ -4,9 +4,11 @@ class AnswersController < ApplicationController
   def create
     @question = Question.find(params[:question_id])
     @answer = @question.answers.create(answer_params)
-     @answer.user = current_user 
-      @answer.save
+    @answer.user = current_user 
+    if @answer.save
+    @answer.create_activity :create, owner: current_user, recipient: @question.user
     redirect_to question_path(@question)  
+    end
   
   end
 

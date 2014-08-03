@@ -26,36 +26,11 @@ $(document).ready(function() {
       }
 
   })
-   var availableTags = [
-      "ActionScript",
-      "AppleScript",
-      "Asp",
-      "BASIC",
-      "C",
-      "C++",
-      "Clojure",
-      "COBOL",
-      "ColdFusion",
-      "Erlang",
-      "Fortran",
-      "Groovy",
-      "Haskell",
-      "Java",
-      "JavaScript",
-      "Lisp",
-      "Perl",
-      "PHP",
-      "Python",
-      "Ruby",
-      "Scala",
-      "Scheme"
-    ];
-    $( "#tags" ).autocomplete({
-      source: availableTags
-    });
+  
    
 });
 </script>
+<%= javascript_include_tag "courselist" %>
     <%= stylesheet_link_tag "jquery-ui" %>
 <style type="text/css">
 #coursed,#yeard,#testnamed,#qnod, #checkbox, #subpart {

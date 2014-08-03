@@ -1,0 +1,38 @@
+<div class="center">
+<h1>Notifications</h1>
+<% if @activities.present? %>
+<% @activities.each do |activity| %>
+  <div class="activity">
+    <%= link_to activity.owner.first_name, activity.owner if activity.owner %>
+    added an answer to
+    <% if activity.trackable %>
+    <%#= activity.inspect %>
+    <%= link_to activity.trackable.question.name, activity.trackable.question %>
+    <br/><br/>
+       <%#= link_to 'Delete', activity_path(activity),
+                    method: :delete, data: { confirm: 'Are you sure?' } %>
+    <% end %>
+  </div>
+<% end %>
+
+<% end %>
+<!--
+<h1>Questions I have answered</h1>
+<% if @myacts.present? %>
+<% @myacts.each do |myact| %>
+  <div class="activity">
+    <%= link_to myact.owner.first_name, myact.owner if myact.owner %>
+    added an answer to
+    <% if myact.trackable %>
+    <%#= activity.inspect %>
+    <%= link_to myact.trackable.question.name, myact.trackable.question %>
+    <br/><br/>
+       <%#= link_to 'Delete', activity_path(activity),
+                    method: :delete, data: { confirm: 'Are you sure?' } %>
+    <% end %>
+  </div>
+<% end %>
+
+<% end %>
+</div>
+-->

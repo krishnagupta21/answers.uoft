@@ -66,3 +66,5 @@ gem 'will_paginate', '~> 3.0'
 gem 'sendgrid'
 
 gem 'acts_as_votable','~> 0.10.0'
+
+gem 'public_activity'
