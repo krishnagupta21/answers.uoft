@@ -8,8 +8,8 @@ development:
   encoding: unicode
   host: localhost
   database: ans
-  user: krishna
-  password: k21champ
+  user: postgres
+  password: qwerty
 
 
 test:
