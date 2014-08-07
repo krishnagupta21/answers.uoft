@@ -2,16 +2,16 @@ class QuestionsController < ApplicationController
 before_action :authenticate_user!, :except => [:show, :index, :search]
 load_and_authorize_resource except: :show
   def index
-    
-    if params[:question]
-       @questions = Question.search(params).order("created_at DESC") 
-    else
-      @questions = Question.all
-    
-    end
-      @questions = Question.paginate(:page => params[:page], :per_page => 10)
-
-
+      if params[:question]
+          @questions = Question.search(params).order("created_at DESC") 
+      else
+          @questions = Question.all
+      end
+      if params[:tag]
+        @questions = Question.tagged_with(params[:tag]).paginate(:page => params[:page], :per_page => 10)
+      else
+        @questions = Question.paginate(:page => params[:page], :per_page => 10)
+      end
   end
 
   def new 
@@ -61,6 +61,6 @@ end
 
   private
 def question_params
-    params.require(:question).permit(:name, :description, :qstnimg, :category, :course, :year, :testname, :qno, :subpart)
+    params.require(:question).permit(:name, :description, :qstnimg, :category, :course, :year, :testname, :qno, :subpart, :tag_list)
 end
 end

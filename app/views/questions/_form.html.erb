@@ -41,9 +41,10 @@ $(document).ready(function() {
 <%= form_for @question,:html => { :multipart => true } do |f| %>
   <strong>Question:</strong><%= f.text_area :name , class: "form-control"%><br/>
   <strong>Question Description:</strong> <%= f.text_area :description, class: "form-control" %><br/>
-   <strong>Add image:</strong> <%= f.file_field :qstnimg %><br/>
+  <strong>Add image:</strong> <%= f.file_field :qstnimg %><br/>
+  <strong>Tags (separated by commas):</strong><%= f.text_field :tag_list %><br/>
 
-    <strong>Category: </strong><select name="question[category]" id="category">
+  <strong>Category: </strong><select name="question[category]" id="category">
   <option></option>
   <option>Exam Question</option>
   <option>General</option>
@@ -91,7 +92,7 @@ $(document).ready(function() {
 </div>
 
 <div id="checkbox">
- <strong> Are you asking a particular subpart? </strong>
+ <strong> Are you asking about particular subpart? </strong>
   <input type="radio" name="question[subpartcheckbox]" id="ischecked" value="yes">Yes 
   <input type="radio" name="question[subpartcheckbox]" id="no" value="no">No<br/>
 </div>
@@ -103,6 +104,7 @@ $(document).ready(function() {
    <% end %>
   </select><br/> 
 </div>
+
 <br/><br/>
   <%= f.submit "Ask Question", class: "btn btn-default"%>
 <%end%>

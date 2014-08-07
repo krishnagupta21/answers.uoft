@@ -7,10 +7,12 @@ class Question < ActiveRecord::Base
 
   has_many :answers, dependent: :destroy
   belongs_to :user
-  validates_presence_of :user, :name, :description, :category
-  validates_length_of :name, :description, :minimum =>30
+  validates_presence_of :user, :name, :description, :category, :tag_list
+  validates_length_of :name, :description, :minimum =>10
 
   validates_presence_of :course,:year, :testname, :qno, :if => lambda {category == "Exam Question"}
+  
+  acts_as_taggable
 
   def self.search(params)
     # puts "========\n\n\n#{search}\n\n\n"
