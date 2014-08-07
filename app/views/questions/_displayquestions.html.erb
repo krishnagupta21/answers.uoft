@@ -9,7 +9,8 @@
           <%="#{question.qno}" " ." "#{question.subpart}"%><br/>
      <% end %> </strong>
    <strong>Question: </strong> <%= question.name %><br/>
-   <strong> Description:</strong> <%= question.description %><br/>
+   <strong>Description:</strong> <%= question.description %><br/>
+   <strong>Tags: </strong><%= raw question.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %><br/>
     <% if question.category != "Exam Question" %>
    <strong> Category: </strong><%= "#{question.category}"%><br/> 
    <% end %>

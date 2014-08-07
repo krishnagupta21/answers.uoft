@@ -1,6 +1,7 @@
 
 <div class="col-md-4">
-<%= render 'searchrest' %>
+  <%= render 'tagcloud' %>
+  <%= render 'searchrest' %>
 </div>
 <% if params[:question] %>
   <div class="col-md-8">
@@ -8,7 +9,6 @@
   <% if @questions.present? %>
     <%= render 'displayquestions' %>
   <%else%>
-  
     No results found!
   <% end %>
   </div>

@@ -8,8 +8,8 @@ development:
   encoding: unicode
   host: localhost
   database: ans
-  user: krishna
-  password: k21champ
+  user: aya
+  password: 1q2w33ee
 
 
 test:

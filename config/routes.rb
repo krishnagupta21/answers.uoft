@@ -1,5 +1,5 @@
 Ans::Application.routes.draw do
- 
+  get 'tags/:tag', to: 'questions#index', as: :tag 
   get "questions/search"
   get "users/show"
   devise_for :users, :controllers => { registrations: 'registrations' }
