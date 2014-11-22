@@ -1,28 +1,6 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Answers at UofT is a platform where students from University of Toronto can ask questions from past year papers, job related questions, or any other general questions. The main reason this platform is developed is because every year students try to find answers to same questions that their seniors had. But these answers get lost on specific facebook groups. So this will reduce that redundancy and make students life easier.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+The webapp is developed using Ruby on Rails and the various gems available.
+For designing bootstrap is used.
